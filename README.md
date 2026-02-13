@@ -6,8 +6,35 @@
 </p>
 
 
-This project implements a highly available, scalable containerized application infrastructure on AWS using ECS (Elastic Container Service) with a focus on security, automation, and infrastructure as code.
+This project implements a highly available, scalable containerized application infrastructure on AWS using ECS (Elastic Container Service) with a focus on security, automation, and infrastructure as code, all orchestrated through a comprehensive GitLab CI/CD pipeline.
 
+## Terraform Directory Structure:
+The project uses a modular Terraform setup with two main directories:
+
+```txt
+Terraform/
+├── SetUp/                    # Bootstrap infrastructure (run once)
+│   ├── ECR.tf               # Elastic Container Registry repositories
+│   ├── IAM.tf               # CI/CD user, roles, and policies
+│   ├── main.tf              # Provider and backend config
+│   ├── output.tf            # Outputs for Deploy directory
+│   └── var.tf               # Variables for Setup
+│
+└── Deploy/                   # Main infrastructure (CI/CD pipeline)
+    ├── ALB.tf               # Application Load Balancer config
+    ├── Database.tf           # RDS database instances
+    ├── dns.tf               # Route53 DNS records
+    ├── ECS.tf               # ECS clusters, tasks, services
+    ├── EFS.tf               # Elastic File System for shared storage
+    ├── Network.tf           # VPC, subnets, route tables, endpoints
+    ├── main.tf              # Provider and backend config
+    ├── locals.tf            # Local variables
+    ├── output.tf            # Output values
+    ├── terraform.tf         # Terraform version/backend settings
+    ├── var.tf               # Input variables
+    └── templates/           # Task definition templates
+
+```
 # Key Components:
 - Container Orchestration: ECS clusters running API services and proxy containers across private subnets
 
